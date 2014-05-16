@@ -1,0 +1,12 @@
+TN	KEYWORD1
+colour	KEYWORD2
+isConnected	KEYWORD2
+dip1	KEYWORD2
+dip2	KEYWORD2
+dip3	KEYWORD2
+sw	KEYWORD2
+pot	KEYWORD2
+masterConnected	KEYWORD2
+masterRead	KEYWORD2
+printState	KEYWORD2
+
