@@ -1,0 +1,58 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[cm]{fullpage}
+
+
+\title{\texttt{TN.h} --- Arduino Library for Tangible Networks TN-04}
+\author{Espen Knoop}
+\date{}
+
+\begin{document}
+\maketitle
+
+This is an Arduino library for use with Tangible Network TN-04 nodes.  It handles inputs, outputs, reading switches etc.  For serial communication, use the standard Arduino functions.  
+
+The library defines a class \verb|TN|, so using it requires creating a \verb|TN| object and calling its methods.  Here is a minimal example of use:
+\begin{verbatim}
+#include<TN.h> // Requires TN.h, TN.cpp, Keywords.txt in folder <Arduino>/Libraries/TN/
+TN Tn = TN(-1.0,1.0); // Create TN object with range [-1.0, 1.0]
+void setup () {} // Don't need anything in here - inputs/outputs set up in constructor
+void loop () {
+  Tn.colour(255,255,255); // Set LED to white
+  delay(500);
+  Tn.colour(0,0,0); // Set LED to off
+  delay(500);
+}
+\end{verbatim}
+
+Nodes have 3 inputs and 3 outputs.  Inputs/outputs are numbered 1-3 so as to be in keeping with labels on the PCB/units.  Nodes also have a pot (potentiometer, knob), a pushbutton switch and 3 DIP configuration switches that can be switched with a small screwdriver or similar.
+
+Most models will probably use \verb|analogRead()| and \verb|analogWrite()|, but \verb|digitalRead()| and \verb|digitalWrite()| are also provided for models requiring only binary information (on/off) to be sent between the nodes.
+
+The library defines the following methods:
+\begin{table}[h!]
+\begin{tabular}{l p{9cm} }
+\verb+TN(float minVal=0.0, float maxVal=1.0)+ & Constructor for \verb|TN| object.  Input arguments specify range of \verb|analogRead()| and \verb|analogWrite()|: values outside range will be clipped.  If arguments are not specified, range is set to $[0.0,1.0]$.\\
+\verb+void colour(int r, int g, int b)+ & Set LED colour.  Integer arguments $\in [0,255]$.  \\
+\verb+void colour(float r, float g, float b)+ & Set LED colour.  Float arguments $\in [0.0,1.0]$ \\
+\verb+boolean isConnected(int input)+ & Returns \verb|true| if input is connected, \verb|false| otherwise.\\
+\verb+float analogRead(int input)+ & Read the value of an input.  Returns \verb|minVal| if input is not connected.\\
+\verb+void analogWrite(int output, float value)+ & Write a value to an output.  Value is clipped if outside \verb|[minVal,maxVal]| range.\\
+\verb+int digitalRead(int input)+ & Read the value of an input as \verb|true| or \verb|false|.  Only use in conjunction with \verb|digitalWrite()|.\\
+\verb+void digitalWrite(int output, int value)+ & Write an output to \verb|true| (\verb|maxVal|) or \verb|false| (\verb|minVal|). \\
+\verb+boolean dip1()+ & Get state of DIP switch 1 (\verb|true| is on).\\
+\verb+boolean dip2()+ & Get state of DIP switch 2 (\verb|true| is on).\\
+\verb+boolean dip3()+ & Get state of DIP switch 3 (\verb|true| is on).\\
+\verb+boolean sw()+ & Get state of pushbutton switch (\verb|true| is pressed).\\
+\verb+float pot()+ & Get position of pot.  Returns \verb|float| between $0.0$ (fully CCW) and $1.0$ (fully CW).\\
+\verb+boolean masterConnected()+ & Returns \verb|true| if master controller is connected.  \\
+\verb+float masterRead()+ & Get value of master controller.  Returns \verb|float| between $0.0$ (fully CCW) and $1.0$ (fully CW).  Returns $0.0$ if master controller is not connected. \\
+\verb+void printState()+ & For debugging.  Prints out the current state (ins, outs, switches etc) to serial.  Requires \verb|Serial.begin(115200)| in \verb|setup()|.  Runs in approx. 5~ms.
+\end{tabular}
+\end{table}
+
+The libary also includes fast functions for max and min, \verb|MAX(x,y)| and \verb|MIN(x,y)|, as well as \verb|MINMAX(x,l,u)| which returns $x$ if $l<x<u$, $l$ if $x < l$ and $u$ if $u<x$.
+
+
+\end{document}
+
