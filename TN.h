@@ -1,7 +1,7 @@
 /* 
   TN.h - Library for TN-04
   Tangible Networks
-  Espen Knoop, 15th May 2014
+  Espen Knoop, 19th May 2014
 */
 
 #ifndef TN_h
@@ -68,23 +68,23 @@
 class TN {
   public:
     // Constructor
-    TN(float minVal=0.0, float maxVal=1.0);
+    TN(double minVal=0.0, double maxVal=1.0);
     
     // Set LED to RGB colour (ints, [0, 255])
     void colour(int r, int g, int b);
     
-    // Set LED to RGB colour (floats, [0.0, 1.0])
-    void colour(float r, float g, float b);
+    // Set LED to RGB colour (doubles, [0.0, 1.0])
+    void colour(double r, double g, double b);
     
     // Check if an input is connected
     boolean isConnected(int input);
     
-    // Read the analog value from input (returns float in [minVal, maxVal])
+    // Read the analog value from input (returns double in [minVal, maxVal])
     // Returns minVal if input is not connected
-    float analogRead(int input);
+    double analogRead(int input);
     
     // Write value to output (will be clipped to range [minVal, maxVal]
-    void analogWrite(int output, float value);
+    void analogWrite(int output, double value);
     
     // Read the digital value (0 or 1) from input (returns 0 if not connected)
     int digitalRead(int input);
@@ -100,14 +100,14 @@ class TN {
     // Get state of switch (1 is pressed)
     boolean sw();
     
-    // Get position of pot (float, [0.0, 1.0])
-    float pot();
+    // Get position of pot (double, [0.0, 1.0])
+    double pot();
     
     // 1 if master controller is connected
     boolean masterConnected();
     
-    // Value of master controller (float, [0.0, 1.0])
-    float masterRead();  
+    // Value of master controller (double, [0.0, 1.0])
+    double masterRead();  
 
     // Print current state to serial
     void printState();
@@ -121,15 +121,15 @@ class TN {
     void _stopcond();
   
     // Defines range of inputs/outputs (set in constructor)
-    float _minVal;
-    float _maxVal;
+    double _minVal;
+    double _maxVal;
 
     // Stores current state (for printing)
     int _colour[3];
-    float _outs[3];
-    float _ins[3];
-    float _pot;
-    float _master;
+    double _outs[3];
+    double _ins[3];
+    double _pot;
+    double _master;
     boolean _dips[3];
     boolean _sw;
 };

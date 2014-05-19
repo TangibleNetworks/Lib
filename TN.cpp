@@ -1,7 +1,7 @@
 /* 
   TN.cpp - Library for TN-04
   Tangible Networks
-  Espen Knoop, 15th May 2014
+  Espen Knoop, 19th May 2014
 */
 
 
@@ -10,7 +10,7 @@
 
 
 // Constructor
-TN::TN(float minVal, float maxVal) {
+TN::TN(double minVal, double maxVal) {
   _minVal = minVal;
   _maxVal = maxVal;
   pinMode(IN1_A,INPUT);
@@ -64,28 +64,28 @@ inline void TN::_stopcond() {
 }
 
 // Write value to output (will be clipped to range [minVal, maxVal]
-void TN::analogWrite(int output, float floatVal) {
-  floatVal = MINMAX(floatVal,_minVal,_maxVal);
-  int value = floor(4095.0* (floatVal - _minVal)/(_maxVal - _minVal));
+void TN::analogWrite(int output, double doubleVal) {
+  doubleVal = MINMAX(doubleVal,_minVal,_maxVal);
+  int value = floor(4095.0* (doubleVal - _minVal)/(_maxVal - _minVal));
   int address = 0;
   switch (output) {
     case 3:
       address = 0;
       I2C_CS1_HI();
       I2C_CS2_HI();
-      _outs[2] = floatVal;
+      _outs[2] = doubleVal;
       break;
     case 2:
       address = 1;
       I2C_CS1_LO();
       I2C_CS2_HI();
-      _outs[1] = floatVal;
+      _outs[1] = doubleVal;
       break;
     default: // pick 1 as default
       address = 1;
       I2C_CS1_HI();
       I2C_CS2_LO();
-      _outs[0] = floatVal;
+      _outs[0] = doubleVal;
   }
   _startcond();
   I2C_WRITEBIT(1);
@@ -133,8 +133,8 @@ void TN::colour(int r, int g, int b) {
 }
 
 
-// Set LED to RGB colour (floats, [0.0, 1.0])
-void TN::colour(float r, float g, float b) {
+// Set LED to RGB colour (doubles, [0.0, 1.0])
+void TN::colour(double r, double g, double b) {
   colour((int)(r*255.0),(int)(g*255.0),(int)(b*255.0));
 }
  
@@ -154,9 +154,9 @@ boolean TN::isConnected(int input) {
 }
 
 
-// Read the analog value from input (returns float in [minVal, maxVal])
+// Read the analog value from input (returns double in [minVal, maxVal])
 // Returns minVal if input is not connected
-float TN::analogRead(int input) {
+double TN::analogRead(int input) {
   int idx;
   if (isConnected(input)) {
     int rawVal;
@@ -234,8 +234,8 @@ boolean TN::sw() {
 }
 
 
-// Get position of pot (float, [0.0, 1.0])
-float TN::pot() {
+// Get position of pot (double, [0.0, 1.0])
+double TN::pot() {
   _pot = ::analogRead(POT)/1023.0;
   return _pot;
 }
@@ -247,8 +247,8 @@ boolean TN::masterConnected() {
 }
 
 
-// Value of master controller (float, [0.0, 1.0])
-float TN::masterRead() {
+// Value of master controller (double, [0.0, 1.0])
+double TN::masterRead() {
   if (masterConnected()) {
     _master = ::analogRead(MASTER_A)/1023.0;
   }

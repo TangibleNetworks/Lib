@@ -32,21 +32,21 @@ Most models will probably use \verb|analogRead()| and \verb|analogWrite()|, but 
 The library defines the following methods:
 \begin{table}[h!]
 \begin{tabular}{l p{9cm} }
-\verb+TN(float minVal=0.0, float maxVal=1.0)+ & Constructor for \verb|TN| object.  Input arguments specify range of \verb|analogRead()| and \verb|analogWrite()|: values outside range will be clipped.  If arguments are not specified, range is set to $[0.0,1.0]$.\\
+\verb+TN(double minVal=0.0, double maxVal=1.0)+ & Constructor for \verb|TN| object.  Input arguments specify range of \verb|analogRead()| and \verb|analogWrite()|: values outside range will be clipped.  If arguments are not specified, range is set to $[0.0,1.0]$.\\
 \verb+void colour(int r, int g, int b)+ & Set LED colour.  Integer arguments $\in [0,255]$.  \\
-\verb+void colour(float r, float g, float b)+ & Set LED colour.  Float arguments $\in [0.0,1.0]$ \\
+\verb+void colour(double r, double g, double b)+ & Set LED colour.  double arguments $\in [0.0,1.0]$ \\
 \verb+boolean isConnected(int input)+ & Returns \verb|true| if input is connected, \verb|false| otherwise.\\
-\verb+float analogRead(int input)+ & Read the value of an input.  Returns \verb|minVal| if input is not connected.\\
-\verb+void analogWrite(int output, float value)+ & Write a value to an output.  Value is clipped if outside \verb|[minVal,maxVal]| range.\\
+\verb+double analogRead(int input)+ & Read the value of an input.  Returns \verb|minVal| if input is not connected.\\
+\verb+void analogWrite(int output, double value)+ & Write a value to an output.  Value is clipped if outside \verb|[minVal,maxVal]| range.\\
 \verb+int digitalRead(int input)+ & Read the value of an input as \verb|true| or \verb|false|.  Only use in conjunction with \verb|digitalWrite()|.\\
 \verb+void digitalWrite(int output, int value)+ & Write an output to \verb|true| (\verb|maxVal|) or \verb|false| (\verb|minVal|). \\
 \verb+boolean dip1()+ & Get state of DIP switch 1 (\verb|true| is on).\\
 \verb+boolean dip2()+ & Get state of DIP switch 2 (\verb|true| is on).\\
 \verb+boolean dip3()+ & Get state of DIP switch 3 (\verb|true| is on).\\
 \verb+boolean sw()+ & Get state of pushbutton switch (\verb|true| is pressed).\\
-\verb+float pot()+ & Get position of pot.  Returns \verb|float| between $0.0$ (fully CCW) and $1.0$ (fully CW).\\
+\verb+double pot()+ & Get position of pot.  Returns \verb|double| between $0.0$ (fully CCW) and $1.0$ (fully CW).\\
 \verb+boolean masterConnected()+ & Returns \verb|true| if master controller is connected.  \\
-\verb+float masterRead()+ & Get value of master controller.  Returns \verb|float| between $0.0$ (fully CCW) and $1.0$ (fully CW).  Returns $0.0$ if master controller is not connected. \\
+\verb+double masterRead()+ & Get value of master controller.  Returns \verb|double| between $0.0$ (fully CCW) and $1.0$ (fully CW).  Returns $0.0$ if master controller is not connected. \\
 \verb+void printState()+ & For debugging.  Prints out the current state (ins, outs, switches etc) to serial.  Requires \verb|Serial.begin(115200)| in \verb|setup()|.  Runs in approx. 5~ms.
 \end{tabular}
 \end{table}
