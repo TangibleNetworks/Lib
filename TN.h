@@ -109,6 +109,9 @@ class TN {
     // Value of master controller (double, [0.0, 1.0])
     double masterRead();  
 
+    // Read state of master sw (1 is pressed)
+    boolean masterSw();
+
     // Print current state to serial
     void printState();
   private:
@@ -130,6 +133,7 @@ class TN {
     double _ins[3];
     double _pot;
     double _master;
+    boolean _masterSw;
     boolean _dips[3];
     boolean _sw;
 };

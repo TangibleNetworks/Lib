@@ -47,6 +47,7 @@ The library defines the following methods:
 \verb+double pot()+ & Get position of pot.  Returns \verb|double| between $0.0$ (fully CCW) and $1.0$ (fully CW).\\
 \verb+boolean masterConnected()+ & Returns \verb|true| if master controller is connected.  \\
 \verb+double masterRead()+ & Get value of master controller.  Returns \verb|double| between $0.0$ (fully CCW) and $1.0$ (fully CW).  Returns $0.0$ if master controller is not connected. \\
+\verb+boolean masterSw()+ & Returns true if master switch is pressed.  Returns false if master switch not connected.  Do not combine with \verb|masterRead()|. \\
 \verb+void printState()+ & For debugging.  Prints out the current state (ins, outs, switches etc) to serial.  Requires \verb|Serial.begin(115200)| in \verb|setup()|.  Runs in approx. 5~ms.
 \end{tabular}
 \end{table}

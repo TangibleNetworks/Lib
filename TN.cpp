@@ -35,6 +35,7 @@ TN::TN(double minVal, double maxVal) {
   dip2();
   dip3();
   masterRead();
+  masterSw();
   pot();
   sw();
 }
@@ -280,6 +281,13 @@ int TN::_dip() {
   else return 0b111;
 }
 
+// Get state of master switch (1 is pressed)
+boolean TN::masterSw() {
+  _masterSw = ! ::digitalRead(MASTER_HS);
+  return (_masterSw);
+}
+
+
 // Print current state to serial 
 // (takes ~5 ms to execute.  Requires Serial.begin(115200) in setup(). )
 void TN::printState() {
@@ -302,6 +310,8 @@ void TN::printState() {
   Serial.print(_pot);
   Serial.print(", Master: ");
   Serial.print(_master);
+  Serial.print(", Master Sw: ");
+  Serial.print(_masterSw);
   Serial.print(", DIPs: ");
   for (int i=0; i<3; i++) {
     Serial.print(_dips[i]);
