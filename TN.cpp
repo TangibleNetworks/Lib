@@ -188,7 +188,7 @@ int TN::digitalRead(int input) {
     case 3:
       if (isConnected(3)) _ins[2] = ::digitalRead(IN3_A);
       else _ins[2] = 0;
-      return ::digitalRead(IN3_A);
+      return _ins[2];
     case 2:
       if (isConnected(2)) _ins[1] = ::digitalRead(IN2_A);
       else _ins[1] = 0;
